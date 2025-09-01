@@ -1,29 +1,47 @@
 {
-	"project_info": {
-		"project_number": "260593939680",
-		"project_id": "test-tad-e8018",
-		"storage_bucket": "test-tad-e8018.firebasestorage.app"
-	},
-	"client": [
-		{
-			"client_info": {
-				"mobilesdk_app_id": "1:260593939680:android:98a136d1155aca21d44c85",
-				"android_client_info": {
-					"package_name": "com.prashantexpo11.signindemo"
-				}
-			},
-			"oauth_client": [],
-			"api_key": [
-				{
-					"current_key": "AIzaSyCYRkR_nPzxuOViI6-SE3ibJSQNbx8lUgY"
-				}
-			],
-			"services": {
-				"appinvite_service": {
-					"other_platform_oauth_client": []
-				}
-			}
-		}
-	],
-	"configuration_version": "1"
+  "project_info": {
+    "project_number": "260593939680",
+    "project_id": "test-tad-e8018",
+    "storage_bucket": "test-tad-e8018.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:260593939680:android:98a136d1155aca21d44c85",
+        "android_client_info": {
+          "package_name": "com.prashantexpo11.signindemo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "260593939680-2l80co17cvj5j7g9vf3gbim96m3anseo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.prashantexpo11.signindemo",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "260593939680-ek7gmhr6uqrr7ucgsdk7udejdacha615.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYRkR_nPzxuOViI6-SE3ibJSQNbx8lUgY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "260593939680-b2j4mjim7mdp7a8vns1v17h1oiao2qml.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
 }
