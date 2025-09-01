@@ -1,35 +1,43 @@
-import React, { useState } from "react"; // 1. Import useState
+import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Pressable, StyleSheet, Text, View, Image, Button } from "react-native";
-// 2. Import GoogleSignin and statusCodes
 import {
 	GoogleSignin,
 	statusCodes,
 } from "@react-native-google-signin/google-signin";
+// 1. Import Firebase auth
+import auth from "@react-native-firebase/auth";
 
 export default function App() {
-	// 3. Initialize state correctly
 	const [userInfo, setUserInfo] = useState(null);
 
-	// steps you need to do
-	GoogleSignin.configure({
-		webClientId: "USE_YOUR_OWN_WEBCLIENT_ID_HERE",
+	// Configure Google Sign-in
 
+	GoogleSignin.configure({
+		webClientId:
+			"617136183526-k50ps5ck4i7kbieb1pnbutenegbp73n2.apps.googleusercontent.com",
 		offlineAccess: true,
 	});
 
 	const signIn = async () => {
-		console.log("pressed");
-
 		try {
+			// Check if your device has Google Play Services
 			await GoogleSignin.hasPlayServices();
-			// 4. The response object has the user info directly
-			const response = await GoogleSignin.signIn();
-			// 5. Use setUserInfo to update the state
-			setUserInfo(response.data);
-			console.log("SIGN IN SUCCESSFUL", response.data);
+			// Get the users ID token
+			const { idToken } = await GoogleSignin.signIn();
+			console.log("Got Google ID Token: ", idToken);
+
+			// 2. Create a Google credential with the token
+			const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+			// 3. Sign-in the user with the credential
+			const firebaseUserCredential = await auth().signInWithCredential(
+				googleCredential
+			);
+
+			console.log("SIGNED IN WITH FIREBASE!", firebaseUserCredential.user);
+			setUserInfo(firebaseUserCredential.user); // Now you have the Firebase user object
 		} catch (error) {
-			// 6. Use the imported statusCodes
 			if (error.code === statusCodes.SIGN_IN_CANCELLED) {
 				console.log("User cancelled the login flow");
 			} else if (error.code === statusCodes.IN_PROGRESS) {
@@ -37,7 +45,7 @@ export default function App() {
 			} else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
 				console.log("Play services not available or outdated");
 			} else {
-				console.error("Some other error happened", error);
+				console.error("Some other error happened", error.message);
 			}
 		}
 	};
@@ -45,7 +53,8 @@ export default function App() {
 	const signOut = async () => {
 		try {
 			await GoogleSignin.signOut();
-			setUserInfo(null); // Clear user info
+			await auth().signOut(); // Also sign out from Firebase
+			setUserInfo(null);
 		} catch (error) {
 			console.error("SignOut Error: ", error);
 		}
@@ -54,20 +63,21 @@ export default function App() {
 	return (
 		<View style={styles.container}>
 			{userInfo ? (
-				// Show user info and a sign out button if signed in
 				<View style={styles.container}>
 					<Text style={styles.welcomeText}>Welcome!</Text>
-					{userInfo.photo && (
-						<Image source={{ uri: userInfo.photo }} style={styles.profilePic} />
+					{userInfo.photoURL && (
+						<Image
+							source={{ uri: userInfo.photoURL }}
+							style={styles.profilePic}
+						/>
 					)}
-					<Text>{userInfo.name}</Text>
+					<Text>{userInfo.displayName}</Text>
 					<Text>{userInfo.email}</Text>
 					<View style={{ marginTop: 20 }}>
 						<Button title="Sign Out" onPress={signOut} color="red" />
 					</View>
 				</View>
 			) : (
-				// Show the sign in button if not signed in
 				<Pressable onPress={signIn} style={styles.button}>
 					<Text style={styles.text}>Sign in with Google</Text>
 				</Pressable>
@@ -77,7 +87,7 @@ export default function App() {
 	);
 }
 
-// Add these to your styles
+// Styles remain the same
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,

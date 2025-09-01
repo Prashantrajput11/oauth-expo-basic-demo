@@ -1,0 +1,29 @@
+{
+	"project_info": {
+		"project_number": "260593939680",
+		"project_id": "test-tad-e8018",
+		"storage_bucket": "test-tad-e8018.firebasestorage.app"
+	},
+	"client": [
+		{
+			"client_info": {
+				"mobilesdk_app_id": "1:260593939680:android:98a136d1155aca21d44c85",
+				"android_client_info": {
+					"package_name": "com.prashantexpo11.signindemo"
+				}
+			},
+			"oauth_client": [],
+			"api_key": [
+				{
+					"current_key": "AIzaSyCYRkR_nPzxuOViI6-SE3ibJSQNbx8lUgY"
+				}
+			],
+			"services": {
+				"appinvite_service": {
+					"other_platform_oauth_client": []
+				}
+			}
+		}
+	],
+	"configuration_version": "1"
+}
