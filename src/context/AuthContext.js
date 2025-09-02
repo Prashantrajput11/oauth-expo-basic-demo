@@ -10,22 +10,17 @@ export const AuthProvider = ({ children }) => {
 	const [user, setUser] = useState(null);
 	const [isLoading, setIsLoading] = useState(true);
 
-	console.log("user", user);
-
-	// This is the core of the Firebase auth system.
-	// It listens for changes to the user's login state in real-time.
 	useEffect(() => {
 		const subscriber = auth().onAuthStateChanged((firebaseUser) => {
 			setUser(firebaseUser);
-			// We are no longer loading once we have a user or know there isn't one.
+
 			if (isLoading) {
 				setIsLoading(false);
 			}
 		});
-		return subscriber; // Unsubscribe on unmount
+		return subscriber;
 	}, []);
 
-	// The value that will be provided to all children components
 	const value = {
 		user,
 		isLoading,

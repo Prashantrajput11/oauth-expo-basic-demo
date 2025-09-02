@@ -2,12 +2,12 @@ import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Button } from "react-native";
 
-// Import your screen components
 import HomeScreen from "../screens/HomeScreen";
 import ProfileScreen from "../screens/ProfileScreen";
-// import { useAuth } from "../contexts/authContext";
+
 import auth from "@react-native-firebase/auth";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
+import CreateScreen from "../screens/CreateScreen";
 
 // Create the Stack navigator
 const Stack = createNativeStackNavigator();
@@ -35,6 +35,15 @@ const MainStack = () => {
 						/>
 					),
 				})}
+			/>
+			<Stack.Screen
+				name="Create"
+				component={CreateScreen}
+				options={{
+					headerRight: () => (
+						<Button title="Sign Out" onPress={handleSignOut} color="red" />
+					),
+				}}
 			/>
 			<Stack.Screen
 				name="Profile"
